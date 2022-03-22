@@ -3,6 +3,26 @@ import React, { useState, useEffect } from "react";
 export const TodoList = () => {
 	const [tarea, setTarea] = useState("");
 	const [listaTareas, setListaTareas] = useState([]);
+	useEffect(() => {
+		getTarea();
+	}, []);
+	function getTarea() {
+		var requestOptions = {
+			method: "GET",
+			redirect: "follow",
+		};
+
+		fetch(
+			"https://assets.breatheco.de/apis/fake/todos/user/didiego",
+			requestOptions
+		)
+			.then((response) => response.json())
+			.then((result) => {
+				console.log(result);
+				setTarea(result);
+			})
+			.catch((error) => console.log("error", error));
+	}
 	return (
 		<div>
 			<div className="contenedor">
